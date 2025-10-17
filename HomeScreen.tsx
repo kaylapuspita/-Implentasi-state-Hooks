@@ -1,35 +1,38 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  ImageBackground,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 
-const HomeScreen = ({ navigation }: any) => {
-  const destinasi = {
-    nama: 'Curug Sawer Sukabumi',
-    hargaTiket: 25000,
-    gambar: 'https://www.nativeindonesia.com/foto/curug-sawer-sukabumi-1.jpg',
-  };
+const colors = {
+  primary: '#00b8b0',
+  secondary: '#343A40',
+  text: '#fff',
+};
+
+const container ={
+  flex: 1,
+  padding: 20,
+}
+
+const App = () => {
+  const navigation = useNavigation();
 
   return (
-    <ImageBackground
-      source={require('../../assets/gambar1.jpg')}
-      style={styles.background}
-    >
-      <View style={styles.overlay}>
-        <Text style={styles.title}>Your Next Adventure{'\n'}Starts Here</Text>
-        <Text style={styles.subtitle}>
+    <ImageBackground source={require('../../assets/gambar1.jpg')} style={styles.image}>
+      <View style={[container, {justifyContent: 'flex-end'}]}>
+        <Text style={styles.title}>Your Next Adventure Starts Here</Text>
+        <Text style={styles.text}>
           Life's too short to stay in one place. Find your next favorite city,
           beach, or mountain and let's get moving!
         </Text>
-
-        {/* Kirim data destinasi ke DetailScreen */}
         <TouchableOpacity
+          onPress={() => navigation.navigate('Main' as never)}
           style={styles.button}
-          onPress={() => navigation.navigate('Detail', { destinasi })}
         >
           <Text style={styles.buttonText}>Start Exploring</Text>
         </TouchableOpacity>
@@ -38,37 +41,39 @@ const HomeScreen = ({ navigation }: any) => {
   );
 };
 
-export default HomeScreen;
-
 const styles = StyleSheet.create({
-  background: {
+  image: {
     flex: 1,
-    justifyContent: 'flex-end',
-  },
-  overlay: {
-    padding: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    resizeMode: 'cover',
+    justifyContent: 'center',
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: 'white',
-    marginBottom: 10,
+    fontSize: 36,
+    fontWeight: '600',
+    marginBlockStart: 60,
+    color: colors.text,
   },
-  subtitle: {
-    fontSize: 14,
-    color: 'white',
-    marginBottom: 20,
+  text: {
+    fontSize: 16,
+    fontWeight: '300',
+    marginTop: 10,
+    color: colors.text,
   },
   button: {
-    backgroundColor: '#00C48C',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 30,
+    marginTop: 20,
+    backgroundColor: colors.primary,
+    padding: 12,
+    borderRadius: 20,
     alignSelf: 'flex-start',
+    paddingHorizontal: 40,
+    alignItems: 'center',
+    marginBottom: 40,
   },
   buttonText: {
-    color: '#000',
-    fontWeight: 'bold',
+    color: colors.secondary,
+    fontWeight: '700',
+    fontSize: 16,
   },
 });
+
+export default App;
